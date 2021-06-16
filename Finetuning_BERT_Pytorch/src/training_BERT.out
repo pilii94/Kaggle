@@ -1,0 +1,305 @@
+2021-06-01 15:00:38.917594: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library libcudart.so.10.1
+[35m[2021-06-01 15:00:41][0m[34m[INFO] [0mStarting model training PID: [32m347467[0m
+[35m[2021-06-01 15:00:41][0m[34m[INFO] [0mWorking directory: [32m../models/[0m
+Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForSequenceClassification: ['cls.predictions.bias', 'cls.predictions.transform.dense.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.weight', 'cls.seq_relationship.weight', 'cls.seq_relationship.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.predictions.transform.LayerNorm.bias']
+- This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at bert-base-uncased and are newly initialized: ['classifier.weight', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[35m[2021-06-01 15:00:49][0m[34m[INFO] [0m============= Epoch: 1 / 500 =============
+[35m[2021-06-01 15:00:49][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:03:15][0m[34m[INFO] [0mAvg training loss: 0.5101770987518155
+[35m[2021-06-01 15:03:15][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:03:20][0m[34m[INFO] [0mRMSE: 0.7843601745035913
+[35m[2021-06-01 15:03:20][0m[34m[INFO] [0m============= Epoch: 2 / 500 =============
+[35m[2021-06-01 15:03:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:05:55][0m[34m[INFO] [0mAvg training loss: 0.25354689373678546
+[35m[2021-06-01 15:05:55][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:06:00][0m[34m[INFO] [0mRMSE: 0.7432479187846184
+[35m[2021-06-01 15:06:00][0m[34m[INFO] [0mCreating model checkpoint
+[35m[2021-06-01 15:06:00][0m[34m[INFO] [0m============= Epoch: 3 / 500 =============
+[35m[2021-06-01 15:06:00][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:08:25][0m[34m[INFO] [0mAvg training loss: 0.15976978502408556
+[35m[2021-06-01 15:08:25][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:08:30][0m[34m[INFO] [0mRMSE: 0.5412335553103023
+[35m[2021-06-01 15:08:30][0m[34m[INFO] [0mCreating model checkpoint
+[35m[2021-06-01 15:08:30][0m[34m[INFO] [0m============= Epoch: 4 / 500 =============
+[35m[2021-06-01 15:08:30][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:10:57][0m[34m[INFO] [0mAvg training loss: 0.1009980771678929
+[35m[2021-06-01 15:10:57][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:11:02][0m[34m[INFO] [0mRMSE: 0.6128582590156131
+[35m[2021-06-01 15:11:02][0m[34m[INFO] [0m============= Epoch: 5 / 500 =============
+[35m[2021-06-01 15:11:02][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:13:33][0m[34m[INFO] [0mAvg training loss: 0.07158015533219031
+[35m[2021-06-01 15:13:33][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:13:38][0m[34m[INFO] [0mRMSE: 0.6044595854149925
+[35m[2021-06-01 15:13:38][0m[34m[INFO] [0m============= Epoch: 6 / 500 =============
+[35m[2021-06-01 15:13:38][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:16:07][0m[34m[INFO] [0mAvg training loss: 0.05473852265760489
+[35m[2021-06-01 15:16:07][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:16:12][0m[34m[INFO] [0mRMSE: 0.6191673287087016
+[35m[2021-06-01 15:16:12][0m[34m[INFO] [0m============= Epoch: 7 / 500 =============
+[35m[2021-06-01 15:16:12][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:18:39][0m[34m[INFO] [0mAvg training loss: 0.04672126260405073
+[35m[2021-06-01 15:18:39][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:18:44][0m[34m[INFO] [0mRMSE: 0.6375291132264667
+[35m[2021-06-01 15:18:44][0m[34m[INFO] [0m============= Epoch: 8 / 500 =============
+[35m[2021-06-01 15:18:44][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:21:09][0m[34m[INFO] [0mAvg training loss: 0.044859431587673464
+[35m[2021-06-01 15:21:09][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:21:14][0m[34m[INFO] [0mRMSE: 0.606441766437557
+[35m[2021-06-01 15:21:14][0m[34m[INFO] [0m============= Epoch: 9 / 500 =============
+[35m[2021-06-01 15:21:14][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:23:39][0m[34m[INFO] [0mAvg training loss: 0.03840135360504486
+[35m[2021-06-01 15:23:39][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:23:44][0m[34m[INFO] [0mRMSE: 0.6483067721128464
+[35m[2021-06-01 15:23:44][0m[34m[INFO] [0m============= Epoch: 10 / 500 =============
+[35m[2021-06-01 15:23:44][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:26:14][0m[34m[INFO] [0mAvg training loss: 0.0352574301092392
+[35m[2021-06-01 15:26:14][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:26:20][0m[34m[INFO] [0mRMSE: 0.6233473796811368
+[35m[2021-06-01 15:26:20][0m[34m[INFO] [0m============= Epoch: 11 / 500 =============
+[35m[2021-06-01 15:26:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:28:51][0m[34m[INFO] [0mAvg training loss: 0.033447645956410976
+[35m[2021-06-01 15:28:51][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:28:56][0m[34m[INFO] [0mRMSE: 0.6753649964100785
+[35m[2021-06-01 15:28:56][0m[34m[INFO] [0m============= Epoch: 12 / 500 =============
+[35m[2021-06-01 15:28:56][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:31:26][0m[34m[INFO] [0mAvg training loss: 0.031800587592955946
+[35m[2021-06-01 15:31:26][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:31:31][0m[34m[INFO] [0mRMSE: 0.5937946053842703
+[35m[2021-06-01 15:31:31][0m[34m[INFO] [0m============= Epoch: 13 / 500 =============
+[35m[2021-06-01 15:31:31][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:33:57][0m[34m[INFO] [0mAvg training loss: 0.027833054610017137
+[35m[2021-06-01 15:33:57][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:34:02][0m[34m[INFO] [0mRMSE: 0.5883903383380837
+[35m[2021-06-01 15:34:02][0m[34m[INFO] [0m============= Epoch: 14 / 500 =============
+[35m[2021-06-01 15:34:02][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:36:27][0m[34m[INFO] [0mAvg training loss: 0.027423960083751097
+[35m[2021-06-01 15:36:27][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:36:32][0m[34m[INFO] [0mRMSE: 0.6143589379886786
+[35m[2021-06-01 15:36:32][0m[34m[INFO] [0m============= Epoch: 15 / 500 =============
+[35m[2021-06-01 15:36:32][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:39:02][0m[34m[INFO] [0mAvg training loss: 0.026787015820377534
+[35m[2021-06-01 15:39:02][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:39:08][0m[34m[INFO] [0mRMSE: 0.6126895070903831
+[35m[2021-06-01 15:39:08][0m[34m[INFO] [0m============= Epoch: 16 / 500 =============
+[35m[2021-06-01 15:39:08][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:41:38][0m[34m[INFO] [0mAvg training loss: 0.022491591981083716
+[35m[2021-06-01 15:41:38][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:41:43][0m[34m[INFO] [0mRMSE: 0.6050797510478232
+[35m[2021-06-01 15:41:43][0m[34m[INFO] [0m============= Epoch: 17 / 500 =============
+[35m[2021-06-01 15:41:43][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:44:07][0m[34m[INFO] [0mAvg training loss: 0.02206422742470795
+[35m[2021-06-01 15:44:07][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:44:12][0m[34m[INFO] [0mRMSE: 0.5868144846624799
+[35m[2021-06-01 15:44:12][0m[34m[INFO] [0m============= Epoch: 18 / 500 =============
+[35m[2021-06-01 15:44:12][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:46:41][0m[34m[INFO] [0mAvg training loss: 0.021222934658204125
+[35m[2021-06-01 15:46:41][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:46:46][0m[34m[INFO] [0mRMSE: 0.6512706701954206
+[35m[2021-06-01 15:46:46][0m[34m[INFO] [0m============= Epoch: 19 / 500 =============
+[35m[2021-06-01 15:46:46][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:49:13][0m[34m[INFO] [0mAvg training loss: 0.021450310296650545
+[35m[2021-06-01 15:49:13][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:49:18][0m[34m[INFO] [0mRMSE: 0.6058725801606973
+[35m[2021-06-01 15:49:18][0m[34m[INFO] [0m============= Epoch: 20 / 500 =============
+[35m[2021-06-01 15:49:18][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:51:43][0m[34m[INFO] [0mAvg training loss: 0.019701736655121312
+[35m[2021-06-01 15:51:43][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:51:48][0m[34m[INFO] [0mRMSE: 0.5973142604860995
+[35m[2021-06-01 15:51:48][0m[34m[INFO] [0m============= Epoch: 21 / 500 =============
+[35m[2021-06-01 15:51:48][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:54:13][0m[34m[INFO] [0mAvg training loss: 0.019780654727326572
+[35m[2021-06-01 15:54:13][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:54:18][0m[34m[INFO] [0mRMSE: 0.5906648433042897
+[35m[2021-06-01 15:54:18][0m[34m[INFO] [0m============= Epoch: 22 / 500 =============
+[35m[2021-06-01 15:54:18][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:56:43][0m[34m[INFO] [0mAvg training loss: 0.018602769527012092
+[35m[2021-06-01 15:56:43][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:56:48][0m[34m[INFO] [0mRMSE: 0.5790475474463569
+[35m[2021-06-01 15:56:48][0m[34m[INFO] [0m============= Epoch: 23 / 500 =============
+[35m[2021-06-01 15:56:48][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 15:59:15][0m[34m[INFO] [0mAvg training loss: 0.016612975769106964
+[35m[2021-06-01 15:59:15][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 15:59:20][0m[34m[INFO] [0mRMSE: 0.5959508009254932
+[35m[2021-06-01 15:59:20][0m[34m[INFO] [0m============= Epoch: 24 / 500 =============
+[35m[2021-06-01 15:59:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:01:45][0m[34m[INFO] [0mAvg training loss: 0.01637580218727826
+[35m[2021-06-01 16:01:45][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:01:50][0m[34m[INFO] [0mRMSE: 0.5658649193743864
+[35m[2021-06-01 16:01:50][0m[34m[INFO] [0m============= Epoch: 25 / 500 =============
+[35m[2021-06-01 16:01:50][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:04:14][0m[34m[INFO] [0mAvg training loss: 0.016865303201621346
+[35m[2021-06-01 16:04:14][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:04:20][0m[34m[INFO] [0mRMSE: 0.5904530725545354
+[35m[2021-06-01 16:04:20][0m[34m[INFO] [0m============= Epoch: 26 / 500 =============
+[35m[2021-06-01 16:04:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:06:44][0m[34m[INFO] [0mAvg training loss: 0.014041479500331756
+[35m[2021-06-01 16:06:44][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:06:49][0m[34m[INFO] [0mRMSE: 0.576212138765388
+[35m[2021-06-01 16:06:49][0m[34m[INFO] [0m============= Epoch: 27 / 500 =============
+[35m[2021-06-01 16:06:49][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:09:15][0m[34m[INFO] [0mAvg training loss: 0.014338829049907718
+[35m[2021-06-01 16:09:15][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:09:20][0m[34m[INFO] [0mRMSE: 0.6248722084694438
+[35m[2021-06-01 16:09:20][0m[34m[INFO] [0m============= Epoch: 28 / 500 =============
+[35m[2021-06-01 16:09:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:11:50][0m[34m[INFO] [0mAvg training loss: 0.014842728088641989
+[35m[2021-06-01 16:11:50][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:11:55][0m[34m[INFO] [0mRMSE: 0.5964573323726654
+[35m[2021-06-01 16:11:55][0m[34m[INFO] [0m============= Epoch: 29 / 500 =============
+[35m[2021-06-01 16:11:55][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:14:26][0m[34m[INFO] [0mAvg training loss: 0.013686226793275824
+[35m[2021-06-01 16:14:26][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:14:31][0m[34m[INFO] [0mRMSE: 0.6139663689666324
+[35m[2021-06-01 16:14:31][0m[34m[INFO] [0m============= Epoch: 30 / 500 =============
+[35m[2021-06-01 16:14:31][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:17:00][0m[34m[INFO] [0mAvg training loss: 0.012939393968499474
+[35m[2021-06-01 16:17:00][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:17:05][0m[34m[INFO] [0mRMSE: 0.599837595389949
+[35m[2021-06-01 16:17:05][0m[34m[INFO] [0m============= Epoch: 31 / 500 =============
+[35m[2021-06-01 16:17:05][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:19:30][0m[34m[INFO] [0mAvg training loss: 0.013095206654408718
+[35m[2021-06-01 16:19:30][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:19:36][0m[34m[INFO] [0mRMSE: 0.6120098448461957
+[35m[2021-06-01 16:19:36][0m[34m[INFO] [0m============= Epoch: 32 / 500 =============
+[35m[2021-06-01 16:19:36][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:22:00][0m[34m[INFO] [0mAvg training loss: 0.012738862356279034
+[35m[2021-06-01 16:22:00][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:22:05][0m[34m[INFO] [0mRMSE: 0.5785405702061124
+[35m[2021-06-01 16:22:05][0m[34m[INFO] [0m============= Epoch: 33 / 500 =============
+[35m[2021-06-01 16:22:05][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:24:38][0m[34m[INFO] [0mAvg training loss: 0.012806338445665928
+[35m[2021-06-01 16:24:38][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:24:43][0m[34m[INFO] [0mRMSE: 0.5721993760930167
+[35m[2021-06-01 16:24:43][0m[34m[INFO] [0m============= Epoch: 34 / 500 =============
+[35m[2021-06-01 16:24:43][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:27:17][0m[34m[INFO] [0mAvg training loss: 0.012166788950810635
+[35m[2021-06-01 16:27:17][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:27:22][0m[34m[INFO] [0mRMSE: 0.5825859531760216
+[35m[2021-06-01 16:27:22][0m[34m[INFO] [0m============= Epoch: 35 / 500 =============
+[35m[2021-06-01 16:27:22][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:29:50][0m[34m[INFO] [0mAvg training loss: 0.011676788916898932
+[35m[2021-06-01 16:29:50][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:29:56][0m[34m[INFO] [0mRMSE: 0.5908250705235534
+[35m[2021-06-01 16:29:56][0m[34m[INFO] [0m============= Epoch: 36 / 500 =============
+[35m[2021-06-01 16:29:56][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:32:21][0m[34m[INFO] [0mAvg training loss: 0.010920240465685913
+[35m[2021-06-01 16:32:21][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:32:26][0m[34m[INFO] [0mRMSE: 0.5773442693882518
+[35m[2021-06-01 16:32:26][0m[34m[INFO] [0m============= Epoch: 37 / 500 =============
+[35m[2021-06-01 16:32:26][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:34:52][0m[34m[INFO] [0mAvg training loss: 0.010611346016673014
+[35m[2021-06-01 16:34:52][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:34:57][0m[34m[INFO] [0mRMSE: 0.6034748562508159
+[35m[2021-06-01 16:34:57][0m[34m[INFO] [0m============= Epoch: 38 / 500 =============
+[35m[2021-06-01 16:34:57][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:37:25][0m[34m[INFO] [0mAvg training loss: 0.009232843714783721
+[35m[2021-06-01 16:37:25][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:37:30][0m[34m[INFO] [0mRMSE: 0.5923274490568373
+[35m[2021-06-01 16:37:30][0m[34m[INFO] [0m============= Epoch: 39 / 500 =============
+[35m[2021-06-01 16:37:30][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:40:00][0m[34m[INFO] [0mAvg training loss: 0.010682907057298364
+[35m[2021-06-01 16:40:00][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:40:05][0m[34m[INFO] [0mRMSE: 0.5932215845419301
+[35m[2021-06-01 16:40:05][0m[34m[INFO] [0m============= Epoch: 40 / 500 =============
+[35m[2021-06-01 16:40:05][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:42:34][0m[34m[INFO] [0mAvg training loss: 0.009608998735943302
+[35m[2021-06-01 16:42:34][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:42:39][0m[34m[INFO] [0mRMSE: 0.607758007115788
+[35m[2021-06-01 16:42:39][0m[34m[INFO] [0m============= Epoch: 41 / 500 =============
+[35m[2021-06-01 16:42:39][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:45:08][0m[34m[INFO] [0mAvg training loss: 0.010199673165097178
+[35m[2021-06-01 16:45:08][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:45:13][0m[34m[INFO] [0mRMSE: 0.6071313594778379
+[35m[2021-06-01 16:45:13][0m[34m[INFO] [0m============= Epoch: 42 / 500 =============
+[35m[2021-06-01 16:45:13][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:47:43][0m[34m[INFO] [0mAvg training loss: 0.009854070047065499
+[35m[2021-06-01 16:47:43][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:47:48][0m[34m[INFO] [0mRMSE: 0.5827118783361382
+[35m[2021-06-01 16:47:48][0m[34m[INFO] [0m============= Epoch: 43 / 500 =============
+[35m[2021-06-01 16:47:48][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:50:15][0m[34m[INFO] [0mAvg training loss: 0.01006801985350195
+[35m[2021-06-01 16:50:15][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:50:20][0m[34m[INFO] [0mRMSE: 0.5909961875942018
+[35m[2021-06-01 16:50:20][0m[34m[INFO] [0m============= Epoch: 44 / 500 =============
+[35m[2021-06-01 16:50:20][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:52:46][0m[34m[INFO] [0mAvg training loss: 0.009487345400591145
+[35m[2021-06-01 16:52:46][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:52:51][0m[34m[INFO] [0mRMSE: 0.5801971124278175
+[35m[2021-06-01 16:52:51][0m[34m[INFO] [0m============= Epoch: 45 / 500 =============
+[35m[2021-06-01 16:52:51][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:55:17][0m[34m[INFO] [0mAvg training loss: 0.009651358791139432
+[35m[2021-06-01 16:55:17][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:55:22][0m[34m[INFO] [0mRMSE: 0.5785727765825059
+[35m[2021-06-01 16:55:22][0m[34m[INFO] [0m============= Epoch: 46 / 500 =============
+[35m[2021-06-01 16:55:22][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 16:57:49][0m[34m[INFO] [0mAvg training loss: 0.008204380601905812
+[35m[2021-06-01 16:57:49][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 16:57:54][0m[34m[INFO] [0mRMSE: 0.5995639132128822
+[35m[2021-06-01 16:57:54][0m[34m[INFO] [0m============= Epoch: 47 / 500 =============
+[35m[2021-06-01 16:57:54][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:00:21][0m[34m[INFO] [0mAvg training loss: 0.008342079059177058
+[35m[2021-06-01 17:00:21][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:00:26][0m[34m[INFO] [0mRMSE: 0.5850512989693217
+[35m[2021-06-01 17:00:26][0m[34m[INFO] [0m============= Epoch: 48 / 500 =============
+[35m[2021-06-01 17:00:26][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:02:56][0m[34m[INFO] [0mAvg training loss: 0.008277761556140985
+[35m[2021-06-01 17:02:56][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:03:01][0m[34m[INFO] [0mRMSE: 0.5835573271744781
+[35m[2021-06-01 17:03:01][0m[34m[INFO] [0m============= Epoch: 49 / 500 =============
+[35m[2021-06-01 17:03:01][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:05:30][0m[34m[INFO] [0mAvg training loss: 0.007661251520568674
+[35m[2021-06-01 17:05:30][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:05:36][0m[34m[INFO] [0mRMSE: 0.5936071566409535
+[35m[2021-06-01 17:05:36][0m[34m[INFO] [0m============= Epoch: 50 / 500 =============
+[35m[2021-06-01 17:05:36][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:08:03][0m[34m[INFO] [0mAvg training loss: 0.008304572288679736
+[35m[2021-06-01 17:08:03][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:08:08][0m[34m[INFO] [0mRMSE: 0.5948700966934363
+[35m[2021-06-01 17:08:08][0m[34m[INFO] [0m============= Epoch: 51 / 500 =============
+[35m[2021-06-01 17:08:08][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:10:33][0m[34m[INFO] [0mAvg training loss: 0.008266959496668677
+[35m[2021-06-01 17:10:33][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:10:38][0m[34m[INFO] [0mRMSE: 0.5903394714825683
+[35m[2021-06-01 17:10:38][0m[34m[INFO] [0m============= Epoch: 52 / 500 =============
+[35m[2021-06-01 17:10:38][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:13:02][0m[34m[INFO] [0mAvg training loss: 0.008189793100447736
+[35m[2021-06-01 17:13:02][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:13:08][0m[34m[INFO] [0mRMSE: 0.5804017827742629
+[35m[2021-06-01 17:13:08][0m[34m[INFO] [0m============= Epoch: 53 / 500 =============
+[35m[2021-06-01 17:13:08][0m[34m[INFO] [0mTraining
+[35m[2021-06-01 17:15:34][0m[34m[INFO] [0mAvg training loss: 0.008578679672162104
+[35m[2021-06-01 17:15:34][0m[34m[INFO] [0mRunning Validation
+[35m[2021-06-01 17:15:39][0m[34m[INFO] [0mRMSE: 0.5943811113635699
+[35m[2021-06-01 17:15:39][0m[34m[INFO] [0mEarly stopping.
+[35m[2021-06-01 17:15:39][0m[34m[INFO] [0mTraining complete.
+[35m[2021-06-01 17:15:39][0m[34m[INFO] [0mRetrieving best model.
+[35m[2021-06-01 17:15:40][0m[34m[INFO] [0mSaved model to ../models/bert-base-uncased/v1
+[35m[2021-06-01 17:15:40][0m[34m[INFO] [0mTrain time: 8.1e+03 s.
+[35m[2021-06-01 17:15:40][0m[34m[INFO] [0mDone model training PID: [32m347467[0m
+Initial GPU Usage
+| ID | GPU | MEM |
+------------------
+|  0 |  0% |  0% |
+|  1 |  0% |  0% |
+|  2 |  0% |  0% |
+|  3 |  0% |  0% |
+|  4 |  0% |  0% |
+|  5 |  0% |  0% |
+|  6 |  0% |  0% |
+|  7 |  0% |  0% |
+GPU Usage after emptying the cache
+| ID | GPU | MEM |
+------------------
+|  0 |  1% |  1% |
+|  1 |  0% |  0% |
+|  2 |  0% |  0% |
+|  3 |  0% |  0% |
+|  4 |  0% |  0% |
+|  5 |  0% |  0% |
+|  6 |  0% |  0% |
+|  7 |  0% |  0% |
+There are 2 GPU(s) available.
+We will use the GPU: GeForce GTX 1080 Ti
