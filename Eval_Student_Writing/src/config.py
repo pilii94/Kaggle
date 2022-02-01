@@ -12,7 +12,7 @@ config['pre_data_dir'] = os.path.join(config['base_dir'], 'data/preprocessed')
 config['model_dir'] = os.path.join(config['base_dir'], f'model/{config["name"]}')
 config['output_dir'] = os.path.join(config['base_dir'], f'output/{config["name"]}')
 config['is_debug'] = False
-config['n_epoch'] = 1 # not to exceed runtime limits on Kaggle
+config['n_epoch'] = 10 # not to exceed runtime limits on Kaggle
 config['n_fold'] = 5
 config['verbose_steps'] = 500
 config['random_seed'] = 42
@@ -30,7 +30,7 @@ config['verbose_steps'] = 500
 if config['is_debug']:
     config['debug_sample'] = 1000
     config['verbose_steps'] = 16
-    config['n_epoch'] = 1
+    config['n_epoch'] = 5
     config['n_fold'] = 2
 
 
