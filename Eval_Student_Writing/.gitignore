@@ -1,2 +1,6 @@
 data/*.csv
 data/*.txt
+data/train/*.txt
+data/test/*.txt
+data/*.zip
+*.log
