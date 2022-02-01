@@ -4,3 +4,5 @@ data/train/*.txt
 data/test/*.txt
 data/*.zip
 *.log
+*.bin
+*.out
