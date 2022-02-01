@@ -7,7 +7,7 @@ config['model_savename'] = 'longformer'
 
 config['model_name'] = 'allenai/longformer-base-4096' # download from Internet
 config['base_dir'] = '../'
-config['data_dir'] = os.path.join(config['base_dir'], 'data/feedback-prize-2021/')
+config['data_dir'] = os.path.join(config['base_dir'], 'data/')
 config['pre_data_dir'] = os.path.join(config['base_dir'], 'data/preprocessed')
 config['model_dir'] = os.path.join(config['base_dir'], f'model/{config["name"]}')
 config['output_dir'] = os.path.join(config['base_dir'], f'output/{config["name"]}')

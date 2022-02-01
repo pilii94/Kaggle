@@ -7,7 +7,7 @@ import logging
 import argparse
 from termcolor import colored
 import os
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
 import gc
