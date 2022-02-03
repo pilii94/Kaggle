@@ -9,7 +9,7 @@ from termcolor import colored
 import os
 from tqdm import tqdm
 from sklearn.model_selection import KFold
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
 import gc
 from collections import defaultdict
 from config import config
@@ -220,7 +220,7 @@ def inference(model, dl, criterion, valid_flg):
     model.eval()
     
     valid_loss = 0
-    valid_accuracy = 0
+    valid_f1sc = 0
     all_logits = None
     for batch_idx, batch in enumerate(stream, start = 1):
         ids = batch['input_ids'].to(device, dtype = torch.long)
@@ -235,7 +235,7 @@ def inference(model, dl, criterion, valid_flg):
             logits = active_logits(raw_logits, word_ids)
             labels = active_labels(raw_labels)
             preds, preds_prob = active_preds_prob(logits)
-            valid_accuracy += accuracy_score(labels.cpu().numpy(), preds.cpu().numpy())
+            valid_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy())
             loss = criterion(logits, labels)
             valid_loss += loss.item()
         
@@ -247,10 +247,10 @@ def inference(model, dl, criterion, valid_flg):
     
     if valid_flg:        
         epoch_loss = valid_loss / batch_idx
-        epoch_accuracy = valid_accuracy / batch_idx
+        epoch_f1sc = valid_f1sc / batch_idx
     else:
-        epoch_loss, epoch_accuracy = 0, 0
-    return all_logits, epoch_loss, epoch_accuracy
+        epoch_loss, epoch_f1sc = 0, 0
+    return all_logits, epoch_loss, epoch_f1sc
 
 
 def preds_class_prob(all_logits, dl):
@@ -332,7 +332,7 @@ def post_process_pred(df, all_preds, all_preds_prob):
 def train_fn(model, dl_train, optimizer, epoch, criterion):
     model.train()
     train_loss = 0
-    train_accuracy = 0
+    train_f1sc = 0
     stream = tqdm(dl_train)
     scaler = GradScaler()
 
@@ -348,7 +348,7 @@ def train_fn(model, dl_train, optimizer, epoch, criterion):
         logits = active_logits(raw_logits, word_ids)
         labels = active_labels(raw_labels)
         preds, preds_prob = active_preds_prob(logits)
-        train_accuracy += accuracy_score(labels.cpu().numpy(), preds.cpu().numpy())
+        train_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy())
         criterion = nn.CrossEntropyLoss()
         loss = criterion(logits, labels)
 
@@ -362,16 +362,16 @@ def train_fn(model, dl_train, optimizer, epoch, criterion):
             print(f'Training loss after {batch_idx:04d} training steps: {loss_step}')
             
     epoch_loss = train_loss / batch_idx
-    epoch_accuracy = train_accuracy / batch_idx
+    epoch_f1sc = train_f1sc / batch_idx
     del dl_train, raw_logits, logits, raw_labels, preds, labels
     torch.cuda.empty_cache()
     gc.collect()
     print(f'epoch {epoch} - training loss: {epoch_loss:.4f}')
-    print(f'epoch {epoch} - training accuracy: {epoch_accuracy:.4f}')
+    print(f'epoch {epoch} - training f1score: {epoch_f1sc:.4f}')
 
 
 def valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion):
-    oof, valid_loss, valid_acc  = get_preds_onefold(model, df_val, dl_val, criterion, valid_flg=True)
+    oof, valid_loss, valid_f1  = get_preds_onefold(model, df_val, dl_val, criterion, valid_flg=True)
     f1score =[]
     # classes = oof['class'].unique()
     classes = ['Lead', 'Position', 'Counterclaim', 'Rebuttal','Evidence','Concluding Statement']
@@ -384,7 +384,7 @@ def valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion):
         print(f' * {c:<10}: {f1:4f}')
         f1score.append(f1)
     f1avg = np.mean(f1score)
-    print(f'Overall Validation avg F1: {f1avg:.4f} val_loss:{valid_loss:.4f} val_accuracy:{valid_acc:.4f}')
+    print(f'Overall Validation avg F1: {f1avg:.4f} val_loss:{valid_loss:.4f} val_f1:{valid_f1:.4f}')
     return valid_loss, oof
 
 

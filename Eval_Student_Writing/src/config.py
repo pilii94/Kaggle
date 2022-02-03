@@ -2,7 +2,7 @@ import os
 
 config = {}
 
-config['name'] = 'fp_exp3'
+config['name'] = 'fp_exp4'
 config['model_savename'] = 'longformer'
 
 config['model_name'] = 'allenai/longformer-base-4096' # download from Internet
@@ -12,7 +12,7 @@ config['pre_data_dir'] = os.path.join(config['base_dir'], 'data/preprocessed')
 config['model_dir'] = os.path.join(config['base_dir'], f'model/{config["name"]}')
 config['output_dir'] = os.path.join(config['base_dir'], f'output/{config["name"]}')
 config['is_debug'] = False
-config['n_epoch'] = 10 # not to exceed runtime limits on Kaggle
+config['n_epoch'] = 30 # not to exceed runtime limits on Kaggle
 config['n_fold'] = 5
 config['verbose_steps'] = 500
 config['random_seed'] = 42
