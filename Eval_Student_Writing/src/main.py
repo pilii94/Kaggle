@@ -19,6 +19,7 @@ from config import config
 from sklearn.feature_extraction.text import CountVectorizer
 import torch
 import torch.nn as nn
+
 from transformers import LongformerConfig, LongformerModel, LongformerTokenizerFast
 from torch.utils.data import Dataset, DataLoader
 from torch.cuda.amp import autocast, GradScaler
@@ -39,7 +40,7 @@ def agg_essays(train_flg):
         df_texts = pd.DataFrame({'id': names, 'text': texts})
 
     df_texts['text_split'] = df_texts.text.str.split()
-    print('Completed tokenizing texts.')
+    print('[PREPROCESSING] Completed tokenizing texts.')
     return df_texts
 
 def ner(df_texts, df_train):
@@ -56,7 +57,7 @@ def ner(df_texts, df_train):
         all_entities.append(entities)
 
     df_texts['entities'] = all_entities
-    print('Completed mapping discourse to each token.')
+    print('[PREPROCESSING] Completed mapping discourse to each token.')
     return df_texts
 
 def preprocess(df_train = None):
@@ -131,6 +132,7 @@ class FeedbackPrizeDataset(Dataset):
 
     def __len__(self):
         return self.len
+
 
 class FeedbackModel(nn.Module):
     def __init__(self):
@@ -256,7 +258,7 @@ def inference(model, dl, criterion, valid_flg):
 
 
 def preds_class_prob(all_logits, dl):
-    print("predict target class and its probabilty")
+    print("[PREDICTION] Predicting target class and its probabilty")
     final_predictions = []
     final_predictions_score = []
     stream = tqdm(dl)
@@ -294,8 +296,9 @@ def get_preds_onefold(model, df, dl, criterion, valid_flg):
 def get_preds_folds(df, dl, criterion, valid_flg=False):
     for i_fold in range(config['n_fold']):
         model_filename = os.path.join(config['model_dir'], f"{config['model_savename']}_{i_fold}.bin")
-        print(f"{model_filename} inference")
-        model = FeedbackModel()
+        print(f"[INFERENCE] {model_filename} ")
+        initmodel = FeedbackModel()
+        model = nn.DataParallel(initmodel)
         model = model.to(device)
         model.load_state_dict(torch.load(model_filename))
         logits, valid_loss, valid_acc = inference(model, dl, criterion, valid_flg)
@@ -364,15 +367,15 @@ def train_fn(model, dl_train, optimizer, epoch, criterion):
         
         if batch_idx % config['verbose_steps'] == 0:
             loss_step = train_loss / batch_idx
-            print(f'Training loss after {batch_idx:04d} training steps: {loss_step}')
+            print(f'[TRAINING] Training loss after {batch_idx:04d} training steps: {loss_step}')
             
     epoch_loss = train_loss / batch_idx
     epoch_f1sc = train_f1sc / batch_idx
     del dl_train, raw_logits, logits, raw_labels, preds, labels
     torch.cuda.empty_cache()
     gc.collect()
-    print(f'epoch {epoch} - training loss: {epoch_loss:.4f}')
-    print(f'epoch {epoch} - training f1score: {epoch_f1sc:.4f}')
+    print(f'[TRAINING] epoch {epoch} - training loss: {epoch_loss:.4f}')
+    print(f'[TRAINING] epoch {epoch} - training f1score: {epoch_f1sc:.4f}')
     return lrs
 
 
@@ -381,7 +384,7 @@ def valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion):
     f1score =[]
     # classes = oof['class'].unique()
     classes = ['Lead', 'Position', 'Counterclaim', 'Rebuttal','Evidence','Concluding Statement']
-    print(f"Validation F1 scores")
+    print(f"[VALIDATION] Validation F1 scores")
 
     for c in classes:
         pred_df = oof.loc[oof['class'] == c].copy()
@@ -390,7 +393,7 @@ def valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion):
         print(f' * {c:<10}: {f1:4f}')
         f1score.append(f1)
     f1avg = np.mean(f1score)
-    print(f'Overall Validation avg F1: {f1avg:.4f} val_loss:{valid_loss:.4f} val_f1:{valid_f1:.4f}')
+    print(f'[VALIDATION] ===> Overall Validation avg F1 scoring for competition: {f1avg:.4f} ')
     return valid_loss, oof
 
 
@@ -433,9 +436,9 @@ if __name__ == "__main__":
     df_alltrain = pd.read_csv(f'{config["data_dir"]}/corrected_train.csv')
 
     alltrain_texts = preprocess(df_alltrain)
-    test_texts = preprocess()
 
     alltrain_texts = split_fold(alltrain_texts)
+
     alltrain_texts.head()
 
 
@@ -448,13 +451,14 @@ if __name__ == "__main__":
 
     early_stopping = EarlyStopping()
 
-    print(f'Using device: {device}')
+    print(f'[SETTINGS] Using device: {device}')
     
     oof = pd.DataFrame()
     for i_fold in range(config['n_fold']):
-        print(f'=== fold{i_fold} training ===')
+        print(f'============== FOLD {i_fold} TRAINING =============')
         tokenizer = LongformerTokenizerFast.from_pretrained(config['model_name'], add_prefix_space = True)
-        model = FeedbackModel()
+        initmodel = FeedbackModel()
+        model = nn.DataParallel(initmodel)
         model = model.to(device)
         
         
@@ -470,15 +474,13 @@ if __name__ == "__main__":
         best_val_loss = np.inf
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
-        scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.1)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=3)
         
         for epoch in range(1, config['n_epoch'] + 1):
+            print(f'=== Epoc {epoch} ===')
             lrs = train_fn(model, dl_train, optimizer, epoch, criterion)
             valid_loss, _oof = valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion)
-            scheduler.step()
-            early_stopping(valid_loss)
-            if early_stopping.early_stop:
-                break
+            
             if valid_loss < best_val_loss:
                 best_val_loss = valid_loss
                 _oof_fold_best = _oof
@@ -486,6 +488,12 @@ if __name__ == "__main__":
                 model_filename = f'{config["model_dir"]}/{config["model_savename"]}_{i_fold}.bin'
                 torch.save(model.state_dict(), model_filename)
                 print(f'{model_filename} saved')
+
+            scheduler.step()
+            early_stopping(valid_loss)
+            if early_stopping.early_stop:
+                print("[EARLY STOPPING] Early stopping...")
+                break
         
         
         
@@ -498,8 +506,6 @@ if __name__ == "__main__":
         oof = pd.concat([oof, _oof_fold_best])
 
 
-    oof.head()
-
     oof.to_csv(f'{config["output_dir"]}/oof_{config["name"]}.csv', index=False)
 
     pd.read_csv(f'{config["output_dir"]}/oof_{config["name"]}.csv').head()
@@ -509,4 +515,5 @@ if __name__ == "__main__":
         df_train = df_alltrain.query('id==@idlist')
     else:
         df_train = df_alltrain.copy()
-    print(f'overall cv score: {oof_score(df_train, oof)}')
+
+    print(f'[FINISHED TRAINING] Overall cv score: {oof_score(df_train, oof)}')
