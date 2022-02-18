@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import datetime
+import matplotlib
+from matplotlib import pyplot as plt
 import time
 import random
 import logging
@@ -24,7 +26,7 @@ from torch.cuda.amp import autocast, GradScaler
 import sys
 
 sys.path.insert(0,"../common/")
-from utils import active_logits, active_labels, active_preds_prob
+from utils import active_logits, active_labels, active_preds_prob, EarlyStopping
 
 
 
@@ -235,7 +237,7 @@ def inference(model, dl, criterion, valid_flg):
             logits = active_logits(raw_logits, word_ids)
             labels = active_labels(raw_labels)
             preds, preds_prob = active_preds_prob(logits)
-            valid_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy())
+            valid_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy(), average= 'macro')
             loss = criterion(logits, labels)
             valid_loss += loss.item()
         
@@ -330,6 +332,7 @@ def post_process_pred(df, all_preds, all_preds_prob):
     return df_pred
 
 def train_fn(model, dl_train, optimizer, epoch, criterion):
+    lrs = []
     model.train()
     train_loss = 0
     train_f1sc = 0
@@ -348,12 +351,14 @@ def train_fn(model, dl_train, optimizer, epoch, criterion):
         logits = active_logits(raw_logits, word_ids)
         labels = active_labels(raw_labels)
         preds, preds_prob = active_preds_prob(logits)
-        train_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy())
+        train_f1sc += f1_score(labels.cpu().numpy(), preds.cpu().numpy(), average='macro')
         criterion = nn.CrossEntropyLoss()
         loss = criterion(logits, labels)
 
         scaler.scale(loss).backward()
         scaler.step(optimizer)
+        lr=optimizer.param_groups[0]["lr"]
+        lrs.append(lr) 
         scaler.update()
         train_loss += loss.item()
         
@@ -368,6 +373,7 @@ def train_fn(model, dl_train, optimizer, epoch, criterion):
     gc.collect()
     print(f'epoch {epoch} - training loss: {epoch_loss:.4f}')
     print(f'epoch {epoch} - training f1score: {epoch_f1sc:.4f}')
+    return lrs
 
 
 def valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion):
@@ -440,6 +446,8 @@ if __name__ == "__main__":
     else:
         device = torch.device('cpu')
 
+    early_stopping = EarlyStopping()
+
     print(f'Using device: {device}')
     
     oof = pd.DataFrame()
@@ -448,7 +456,7 @@ if __name__ == "__main__":
         tokenizer = LongformerTokenizerFast.from_pretrained(config['model_name'], add_prefix_space = True)
         model = FeedbackModel()
         model = model.to(device)
-        optimizer = torch.optim.Adam(params=model.parameters(), lr=config['lr'])
+        
         
         df_train = alltrain_texts[alltrain_texts['fold'] != i_fold].reset_index(drop = True)
         ds_train = FeedbackPrizeDataset(df_train, tokenizer, config['max_length'], True)
@@ -461,10 +469,16 @@ if __name__ == "__main__":
 
         best_val_loss = np.inf
         criterion = nn.CrossEntropyLoss()
-
+        optimizer = torch.optim.Adam(params=model.parameters(), lr=0.01)
+        scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.1)
+        
         for epoch in range(1, config['n_epoch'] + 1):
-            train_fn(model, dl_train, optimizer, epoch, criterion)
+            lrs = train_fn(model, dl_train, optimizer, epoch, criterion)
             valid_loss, _oof = valid_fn(model, df_val, df_val_eval, dl_val, epoch, criterion)
+            scheduler.step()
+            early_stopping(valid_loss)
+            if early_stopping.early_stop:
+                break
             if valid_loss < best_val_loss:
                 best_val_loss = valid_loss
                 _oof_fold_best = _oof
@@ -472,6 +486,14 @@ if __name__ == "__main__":
                 model_filename = f'{config["model_dir"]}/{config["model_savename"]}_{i_fold}.bin'
                 torch.save(model.state_dict(), model_filename)
                 print(f'{model_filename} saved')
+        
+        
+        
+        plt.plot(range(1, config['n_epoch'] + 1),lrs)
+        plt.title("PyTorch Learning Rate")
+        plt.xlabel("epoch")
+        plt.ylabel("learning rate")
+        plt.savefig(f'{config["model_savename"]}.jpg')
 
         oof = pd.concat([oof, _oof_fold_best])
 
